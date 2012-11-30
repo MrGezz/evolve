@@ -217,8 +217,6 @@ struct kgsl_device {
 	struct kobject pwrscale_kobj;
 #ifdef CONFIG_KGSL_COMPAT
 	struct pm_qos_request_list pm_qos_req_dma;
-#else
-	struct pm_qos_request pm_qos_req_dma;
 #endif
 	struct work_struct ts_expired_ws;
 	struct list_head events;
