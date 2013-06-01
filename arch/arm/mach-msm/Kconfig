@@ -1600,6 +1600,11 @@ config MSM_DALRPC_TEST
 	help
 	  Exercises DAL RPC calls to QDSP6.
 
+config GPU_OVERCLOCK
+	bool "allow GPU overclock"
+	default n
+	help
+	  Allow GPU overclocking
 if CPU_FREQ_MSM
 
 config MSM_CPU_FREQ_SET_MIN_MAX
