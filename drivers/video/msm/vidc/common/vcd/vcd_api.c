@@ -89,7 +89,7 @@ static int vcd_get_clients_security_info(struct client_security_info *sec_info)
 	struct vcd_clnt_ctxt *cctxt;
 	int count = 0;
 	if (!sec_info) {
-		VCD_MSG_ERROR("Invalid argument\n");
+		/*VCD_MSG_ERROR("Invalid argument\n");*/
 		return -EINVAL;
 	}
 	memset(sec_info, 0 , sizeof(*sec_info));
