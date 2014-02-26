@@ -74,7 +74,7 @@
 	 | (MMU_CONFIG << MH_MMU_CONFIG__PA_W_CLNT_BEHAVIOR__SHIFT))
 
 /*default log levels is error for everything*/
-#define KGSL_LOG_LEVEL_DEFAULT 3
+#define KGSL_LOG_LEVEL_DEFAULT 1
 
 #ifndef CONFIG_DEBUG_FS
 unsigned int kgsl_cff_dump_enable;
