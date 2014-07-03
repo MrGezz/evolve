@@ -2457,10 +2457,7 @@ unsigned char hdmi_is_primary;
 #endif
 
 #define MSM_ION_SF_SIZE         0x7000000 /* 112MB */
-#define MSM_ION_CAMERA_SIZE     0x2200000 /*34MB*/
-
-//#define MSM_ION_SF_SIZE         0x9000000 /* 112MB -> 144MB */
-//#define MSM_ION_CAMERA_SIZE     0x7000000 /* 80MB -> 112MB */
+#define MSM_ION_CAMERA_SIZE     0x2200000 /* 80MB -> 112MB */
 
 #ifdef CONFIG_FB_MSM_OVERLAY1_WRITEBACK
 #define MSM_ION_WB_SIZE		0xC00000 /* 12MB */
@@ -2471,21 +2468,13 @@ unsigned char hdmi_is_primary;
 #ifdef CONFIG_QSEECOM
 #define MSM_ION_QSECOM_SIZE	0x300000 /* (3MB) */
 #endif
+
 #define MSM_PMEM_TZCOM_SIZE     0x400000 /* (4MB) */
-
-#ifdef CONFIG_MSM_MULTIMEDIA_USE_ION
 #define MSM_ION_AUDIO_SIZE	MSM_PMEM_AUDIO_SIZE
-#ifdef CONFIG_QSEECOM
-#define MSM_ION_HEAP_NUM	9
-#else
 #define MSM_ION_HEAP_NUM	8
-#endif
 #define MSM_HDMI_PRIM_ION_SF_SIZE MSM_HDMI_PRIM_PMEM_SF_SIZE
-static unsigned msm_ion_sf_size = MSM_ION_SF_SIZE;
-#else
-#define MSM_ION_HEAP_NUM	1
-#endif
 
+static unsigned msm_ion_sf_size = MSM_ION_SF_SIZE;
 static unsigned fb_size;
 static int __init fb_size_setup(char *p)
 {
