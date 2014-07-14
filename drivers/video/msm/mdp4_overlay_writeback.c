@@ -170,6 +170,7 @@ int mdp4_overlay_writeback_on(struct platform_device *pdev)
 }
 
 static void mdp4_writeback_pipe_clean(struct vsync_update *vp);
+static void mdp4_wfd_wait4ov(int cndx);
 
 int mdp4_overlay_writeback_off(struct platform_device *pdev)
 {
