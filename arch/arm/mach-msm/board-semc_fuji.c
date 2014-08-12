@@ -2461,6 +2461,7 @@ unsigned char hdmi_is_primary;
 
 #define MSM_ION_SF_SIZE         0x9000000 /* 112MB -> 144MB */
 #define MSM_ION_CAMERA_SIZE     0x7000000 /* 80MB -> 112MB */
+#define MSM_ION_ADSP_SIZE		SZ_8M
 
 #ifdef CONFIG_FB_MSM_OVERLAY1_WRITEBACK
 #define MSM_ION_WB_SIZE		0xC00000 /* 12MB */
@@ -2476,9 +2477,9 @@ unsigned char hdmi_is_primary;
 #ifdef CONFIG_MSM_MULTIMEDIA_USE_ION
 #define MSM_ION_AUDIO_SIZE	MSM_PMEM_AUDIO_SIZE
 #ifdef CONFIG_QSEECOM
-#define MSM_ION_HEAP_NUM	9
+#define MSM_ION_HEAP_NUM	10
 #else
-#define MSM_ION_HEAP_NUM	8
+#define MSM_ION_HEAP_NUM	9
 #endif
 #define MSM_HDMI_PRIM_ION_SF_SIZE MSM_HDMI_PRIM_PMEM_SF_SIZE
 static unsigned msm_ion_sf_size = MSM_ION_SF_SIZE;
@@ -4330,6 +4331,17 @@ static struct ion_co_heap_pdata co_ion_pdata = {
 	.adjacent_mem_id = INVALID_HEAP_ID,
 	.align = PAGE_SIZE,
 };
+
+static u64 msm_dmamask = DMA_BIT_MASK(32);
+
+static struct platform_device ion_adsp_heap_device = {
+	.name = "ion-adsp-heap-device",
+	.id = -1,
+	.dev = {
+		.dma_mask = &msm_dmamask,
+		.coherent_dma_mask = DMA_BIT_MASK(32),
+	}
+};
 #endif
 
 /**
@@ -4419,7 +4431,16 @@ static struct ion_platform_data ion_pdata = {
 			.name	= ION_AUDIO_HEAP_NAME,
 			.size	= MSM_ION_AUDIO_SIZE,
 			.memory_type = ION_EBI_TYPE,
-			.extra_data = (void *)&co_ion_pdata,
+			.extra_data = (void *) &co_ion_pdata,
+		},
+		{
+			.id     = ION_ADSP_HEAP_ID,
+			.type   = ION_HEAP_TYPE_DMA,
+			.name   = ION_ADSP_HEAP_NAME,
+			.size   = MSM_ION_ADSP_SIZE,
+			.memory_type = ION_EBI_TYPE,
+			.extra_data = (void *) &co_ion_pdata,
+			.priv = &ion_adsp_heap_device.dev,
 		}
 #endif
 	}
