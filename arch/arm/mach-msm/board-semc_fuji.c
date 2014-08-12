@@ -4440,7 +4440,6 @@ static struct ion_platform_data ion_pdata = {
 			.size   = MSM_ION_ADSP_SIZE,
 			.memory_type = ION_EBI_TYPE,
 			.extra_data = (void *) &co_ion_pdata,
-			.priv = &ion_adsp_heap_device.dev,
 		}
 #endif
 	}
