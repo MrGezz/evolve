@@ -112,6 +112,13 @@ static struct adreno_device device_3d0 = {
 		.mem_log = KGSL_LOG_LEVEL_DEFAULT,
 		.pwr_log = KGSL_LOG_LEVEL_DEFAULT,
 		.pm_dump_enable = 0,
+#ifdef CONFIG_HAS_EARLYSUSPEND
+		.display_off = {
+			.level = EARLY_SUSPEND_LEVEL_STOP_DRAWING,
+			.suspend = kgsl_early_suspend_driver,
+			.resume = kgsl_late_resume_driver,
+		},
+#endif
 	},
 	.gmem_base = 0,
 	.gmem_size = SZ_256K,
