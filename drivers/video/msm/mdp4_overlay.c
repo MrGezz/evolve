@@ -2569,19 +2569,6 @@ static int mdp4_overlay_req2pipe(struct mdp_overlay *req, int mixer,
 		return -ERANGE;
 	}
 
-	if (mdp_rev <= MDP_REV_41) {
-		if(mfd->panel_info.type != DTV_PANEL){
-			if ((mdp4_overlay_format2type(req->src.format) == OVERLAY_TYPE_RGB) &&
-				!(req->flags & MDP_OV_PIPE_SHARE) &&
-				((req->src_rect.w > req->dst_rect.w) ||
-				(req->src_rect.h > req->dst_rect.h))) {
-					mdp4_stat.err_size++;
-					pr_err("%s: downscale on RGB pipe!\n", __func__);
-					return -EINVAL;
-			}
-		}
-	}
-
 	if (mdp_hw_revision == MDP4_REVISION_V1) {
 		/*  non integer down saceling ratio  smaller than 1/4
 		 *  is not supportted
@@ -2614,8 +2601,8 @@ static int mdp4_overlay_req2pipe(struct mdp_overlay *req, int mixer,
 		int xres;
 		int yres;
 
-		xres = mfd->panel_info.xres;
-		yres = mfd->panel_info.yres;
+		xres = mfd->var_xres;
+		yres = mfd->var_yres;
 
 		if (((req->dst_rect.x + req->dst_rect.w) > xres) ||
 			((req->dst_rect.y + req->dst_rect.h) > yres)) {
@@ -2712,7 +2699,7 @@ static int mdp4_overlay_req2pipe(struct mdp_overlay *req, int mixer,
 	pipe->blend_op = req->blend_op;
 
 	pipe->transp = req->transp_mask;
-
+/* FIXME
 	if ((pipe->flags & MDP_SECURE_OVERLAY_SESSION) &&
 		(!(req->flags & MDP_SECURE_OVERLAY_SESSION))) {
 		pr_err("%s Switch secure %d", __func__, pipe->pipe_ndx);
@@ -2721,7 +2708,7 @@ static int mdp4_overlay_req2pipe(struct mdp_overlay *req, int mixer,
 	pipe->flags = req->flags;
 
 	*ppipe = pipe;
-
+*/
 	return 0;
 }
 
